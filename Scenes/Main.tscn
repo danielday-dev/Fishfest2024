@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw14wbtwyu0a"]
+
+[ext_resource type="PackedScene" uid="uid://bopmekwrqlnuu" path="res://Prefabs/Player.tscn" id="1_v0owv"]
+[ext_resource type="PackedScene" uid="uid://d3txusv5ge61w" path="res://Prefabs/MainCamera.tscn" id="2_wt5m5"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_tk2kg"]
+flip_faces = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_0co1p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_e6e8n"]
+
+[node name="Main" type="Node3D"]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(13.0141, 0, 0, 0, 13.0141, 0, 0, 0, 35.3644, 0.690526, 2.02859, -5.83126)
+mesh = SubResource("PrismMesh_tk2kg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.122386, 0.0576127, -4.47542)
+mesh = SubResource("SphereMesh_0co1p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5092, 0.203, 2)
+mesh = SubResource("SphereMesh_0co1p")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33708, -1.12726, -5.60233)
+mesh = SubResource("SphereMesh_0co1p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799586, 0.202765, 1.88892)
+mesh = SubResource("SphereMesh_0co1p")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -4.14326)
+mesh = SubResource("BoxMesh_e6e8n")
+
+[node name="Player" parent="." instance=ExtResource("1_v0owv")]
+
+[node name="MainCamera" parent="Player" instance=ExtResource("2_wt5m5")]
