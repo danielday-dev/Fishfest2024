@@ -3,4 +3,7 @@
 [ext_resource type="Shader" uid="uid://pm2swhcdjwn2" path="res://Materials/Darkness/DarknessShader.tres" id="1_nr77l"]
 
 [resource]
+render_priority = 0
 shader = ExtResource("1_nr77l")
+shader_parameter/DarknessStart = 1.0
+shader_parameter/DarknessLength = 3.0
