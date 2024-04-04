@@ -3,7 +3,16 @@ extends CharacterBody3D
 @export var movementSpeed : float = 2.0;
 @export var nonForwardMovementFactor : float = 0.4;
 
-func _process(delta):
+@export var mainCamera : Camera3D;
+@export var pingPrefab : PackedScene;
+@export var pingCount : int = 30;
+@export_range(PI / 9.0, PI) var pingRadius : float = PI / 2.0;	
+
+func _process(_delta):
+	if (Input.is_action_just_pressed("Player_Ability_Ping")):
+		ping_environment();
+
+func _physics_process(delta):
 	# Get input.	
 	var cameraMovement : Vector2 = Vector2(
 		Input.get_axis("ui_left", "ui_right"),
@@ -46,3 +55,36 @@ func _process(delta):
 	
 	# Move.
 	move_and_slide();
+
+func ping_environment():
+	# Safety first.
+	if (!mainCamera || !pingPrefab): 
+		return;
+	
+	# Get collision space.
+	var space = get_world_3d().direct_space_state;
+	
+	# Ping.
+	var pingMultiplier : float = pingRadius / pingCount as float;
+	for i in range(-pingCount, pingCount):
+		for j in range(-pingCount / 2, pingCount / 2):		
+			# Get angle.
+			var ax = (i as float) * pingMultiplier;
+			var ay = (j as float) * pingMultiplier;
+			var forward : Vector3 = Vector3(
+				cos(rotation.x + ay) * -sin(rotation.y + ax),
+				sin(rotation.x + ay),
+				cos(rotation.x + ay) * -cos(rotation.y + ax)
+			);
+			
+			# Ping.
+			var query = PhysicsRayQueryParameters3D.create(
+				mainCamera.global_position, 
+				mainCamera.global_position + (forward * 100.0)
+			);
+			var collision = space.intersect_ray(query);
+		
+			if (collision):
+				var ping = pingPrefab.instantiate();
+				ping.position = collision.position;
+				get_tree().root.add_child(ping);
