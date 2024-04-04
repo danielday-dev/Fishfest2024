@@ -1,4 +1,4 @@
-extends Node3D
+extends CharacterBody3D
 
 @export var movementSpeed : float = 2.0;
 @export var nonForwardMovementFactor : float = 0.4;
@@ -37,11 +37,12 @@ func _process(delta):
 		-cos(rotation.y) * cos(upX)
 	);
 	
-	# TODO: CharacterBody3D
-	# Update position.
-	position += (
+	# Update velocity.
+	velocity = (
 		(forward * playerMovement.z) + 
 		(up * playerMovement.y * nonForwardMovementFactor) + 
 		(right * playerMovement.x * nonForwardMovementFactor)
-	).normalized() * movementSpeed * delta;
-		
+	).normalized() * movementSpeed;
+	
+	# Move.
+	move_and_slide();

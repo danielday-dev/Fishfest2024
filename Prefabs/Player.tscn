@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bopmekwrqlnuu"]
+[gd_scene load_steps=3 format=3 uid="uid://bopmekwrqlnuu"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_7ju3c"]
 
-[node name="Player" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_xqx11"]
+radius = 0.15
+
+[node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_7ju3c")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_xqx11")

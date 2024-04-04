@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bw14wbtwyu0a"]
+[gd_scene load_steps=7 format=3 uid="uid://bw14wbtwyu0a"]
 
+[ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Materials/Darkness/DarknessMaterial.tres" id="1_jns56"]
 [ext_resource type="PackedScene" uid="uid://bopmekwrqlnuu" path="res://Prefabs/Player.tscn" id="1_v0owv"]
-[ext_resource type="PackedScene" uid="uid://d3txusv5ge61w" path="res://Prefabs/MainCamera.tscn" id="2_wt5m5"]
+[ext_resource type="Environment" uid="uid://dvgje6n6sh706" path="res://Resources/Environments/MainCamera.tres" id="2_a6ccp"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_tk2kg"]
+material = ExtResource("1_jns56")
 flip_faces = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_0co1p"]
+material = ExtResource("1_jns56")
 
 [sub_resource type="BoxMesh" id="BoxMesh_e6e8n"]
+material = ExtResource("1_jns56")
 
 [node name="Main" type="Node3D"]
 
@@ -33,9 +37,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799586, 0.202765, 1.88892)
 mesh = SubResource("SphereMesh_0co1p")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -4.14326)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -7.35396)
 mesh = SubResource("BoxMesh_e6e8n")
 
 [node name="Player" parent="." instance=ExtResource("1_v0owv")]
 
-[node name="MainCamera" parent="Player" instance=ExtResource("2_wt5m5")]
+[node name="MainCamera" type="Camera3D" parent="Player"]
+environment = ExtResource("2_a6ccp")
