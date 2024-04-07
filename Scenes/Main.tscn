@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://bw14wbtwyu0a"]
 
-[ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Materials/Darkness/DarknessMaterial.tres" id="1_jns56"]
+[ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Resources/Materials/Darkness/DarknessMaterial.tres" id="1_jns56"]
 [ext_resource type="PackedScene" uid="uid://bopmekwrqlnuu" path="res://Prefabs/Player.tscn" id="1_v0owv"]
-[ext_resource type="Environment" uid="uid://dvgje6n6sh706" path="res://Resources/Environments/MainCamera.tres" id="2_a6ccp"]
+[ext_resource type="Environment" uid="uid://dvgje6n6sh706" path="res://Resources/Environments/WorldEnvironment.tres" id="2_a6ccp"]
 [ext_resource type="PackedScene" uid="uid://cicjr4jih4r15" path="res://Prefabs/Ping.tscn" id="3_nyqp3"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_tk2kg"]
@@ -98,3 +98,13 @@ pingPrefab = ExtResource("3_nyqp3")
 
 [node name="MainCamera" type="Camera3D" parent="Player"]
 environment = ExtResource("2_a6ccp")
+
+[node name="Blue" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.09382, 2.3578, -6.65042)
+light_color = Color(0.321569, 0.560784, 1, 1)
+omni_range = 10.0
+
+[node name="Red" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56436, 2.66569, -8.62077)
+light_color = Color(1, 0.254902, 0.321569, 1)
+omni_range = 10.0

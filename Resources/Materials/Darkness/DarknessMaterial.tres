@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dqnppqlyc1pfx"]
+
+[ext_resource type="Shader" uid="uid://bp8py5jgxrh0g" path="res://Resources/Materials/Darkness/DarknessShader2.tres" id="1_n2pwl"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_n2pwl")

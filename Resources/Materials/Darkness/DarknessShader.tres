@@ -1,6 +1,6 @@
 [gd_resource type="VisualShader" load_steps=20 format=3 uid="uid://pm2swhcdjwn2"]
 
-[ext_resource type="Texture2D" uid="uid://druu51t7h47xd" path="res://Materials/Darkness/DarknessTexture.png" id="1_xsw3f"]
+[ext_resource type="Texture2D" uid="uid://druu51t7h47xd" path="res://Resources/Materials/Darkness/DarknessTexture.png" id="1_xsw3f"]
 
 [sub_resource type="VisualShaderNodeVectorDistance" id="VisualShaderNodeVectorDistance_wluru"]
 
@@ -166,11 +166,11 @@ varyings/VertexWorldPos = "0,4"
 nodes/vertex/2/node = SubResource("VisualShaderNodeVaryingSetter_x00l3")
 nodes/vertex/2/position = Vector2(360, 480)
 nodes/vertex/3/node = SubResource("VisualShaderNodeInput_y1xm7")
-nodes/vertex/3/position = Vector2(-280, 420)
+nodes/vertex/3/position = Vector2(-380, 540)
 nodes/vertex/4/node = SubResource("VisualShaderNodeInput_a8nyj")
-nodes/vertex/4/position = Vector2(-260, 340)
+nodes/vertex/4/position = Vector2(-360, 460)
 nodes/vertex/5/node = SubResource("VisualShaderNodeTransformVecMult_4dlyk")
-nodes/vertex/5/position = Vector2(120, 320)
+nodes/vertex/5/position = Vector2(20, 440)
 nodes/vertex/connections = PackedInt32Array(4, 0, 5, 0, 3, 0, 5, 1, 5, 0, 2, 0)
 nodes/fragment/0/position = Vector2(700, 80)
 nodes/fragment/3/node = SubResource("VisualShaderNodeMix_wuwgb")
