@@ -14,6 +14,10 @@ config/name="Fishfest2024"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 
+[autoload]
+
+GlobalState="*res://Scripts/GlobalState.gd"
+
 [display]
 
 window/size/viewport_width=640
