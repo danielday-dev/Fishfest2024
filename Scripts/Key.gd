@@ -23,7 +23,7 @@ func onPickup(body):
 	queue_free();
 
 signal onPlaced;
-@export_file(".tscn") var winScene;
+@export_file("*.tscn") var winScene;
 func onPlace(body):
 	# Decrement key count.
 	if (GlobalState.keysPickedUp <= 0 || !winScene):

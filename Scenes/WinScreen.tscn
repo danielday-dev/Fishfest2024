@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cd83kkifiyacs"]
+
+[ext_resource type="Theme" uid="uid://dy6yime6oii8l" path="res://Resources/ControlThemes/MainTheme.tres" id="1_hdfla"]
+[ext_resource type="Texture2D" uid="uid://druu51t7h47xd" path="res://Resources/Materials/Darkness/DarknessTexture.png" id="1_xfal3"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hdfla")
+
+[node name="Background" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_xfal3")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You won!
+Thanks for playing :)"
+horizontal_alignment = 1
+vertical_alignment = 1

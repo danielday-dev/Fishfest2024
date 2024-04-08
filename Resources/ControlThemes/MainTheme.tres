@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dy6yime6oii8l"]
+
+[ext_resource type="FontFile" uid="uid://jgqg5ugto864" path="res://Resources/Fonts/Maki.ttf" id="1_1fvpi"]
+
+[resource]
+default_font = ExtResource("1_1fvpi")
+default_font_size = 64
