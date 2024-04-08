@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://bopmekwrqlnuu"]
+[gd_scene load_steps=4 format=3 uid="uid://bopmekwrqlnuu"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_7ju3c"]
+[ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Resources/Materials/Darkness/DarknessMaterial.tres" id="2_m482t"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xqx11"]
 radius = 0.2
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_7ju3c")
+pingMaterial = ExtResource("2_m482t")
+maxPingCooldown = 5.0
+pingSpeed = 6.0
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_xqx11")

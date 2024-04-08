@@ -3,14 +3,21 @@ extends CharacterBody3D
 @export var movementSpeed : float = 2.0;
 @export var nonForwardMovementFactor : float = 0.4;
 
-@export var mainCamera : Camera3D;
-@export var pingPrefab : PackedScene;
-@export var pingCount : int = 30;
-@export_range(PI / 9.0, PI) var pingRadius : float = PI / 2.0;	
+@export var pingMaterial : ShaderMaterial;
+@export var maxPingCooldown : float = 10;
+@export var pingSpeed : float = 1;
+var pingCooldown : float;
+var pingDistance : float;
 
-func _process(_delta):
-	if (Input.is_action_just_pressed("Player_Ability_Ping")):
-		ping_environment();
+func _ready():
+	# Initialize ping.
+	pingCooldown = 0.0;
+	pingDistance = 0.0;
+	
+	
+func _process(delta):
+	# Handle ping.
+	processPing(delta);
 
 func _physics_process(delta):
 	# Get input.	
@@ -56,35 +63,20 @@ func _physics_process(delta):
 	# Move.
 	move_and_slide();
 
-func ping_environment():
+func processPing(delta : float):
 	# Safety first.
-	if (!mainCamera || !pingPrefab): 
+	if (!pingMaterial): 
 		return;
 	
-	# Get collision space.
-	var space = get_world_3d().direct_space_state;
+	# Update ping values.
+	pingCooldown -= delta;
+	pingDistance += delta * pingSpeed;
+	if (pingCooldown < 0): 
+		# Reset ping origin.
+		pingMaterial.set_shader_parameter("pingOrigin", global_position);
+		# Reset cooldown.
+		pingCooldown = maxPingCooldown;
+		pingDistance = 0.0;
 	
-	# Ping.
-	var pingMultiplier : float = pingRadius / pingCount as float;
-	for i in range(-pingCount, pingCount):
-		for j in range(-pingCount / 2, pingCount / 2):		
-			# Get angle.
-			var ax = (i as float) * pingMultiplier;
-			var ay = (j as float) * pingMultiplier;
-			var forward : Vector3 = Vector3(
-				cos(rotation.x + ay) * -sin(rotation.y + ax),
-				sin(rotation.x + ay),
-				cos(rotation.x + ay) * -cos(rotation.y + ax)
-			);
-			
-			# Ping.
-			var query = PhysicsRayQueryParameters3D.create(
-				mainCamera.global_position, 
-				mainCamera.global_position + (forward * 100.0)
-			);
-			var collision = space.intersect_ray(query);
-		
-			if (collision):
-				var ping = pingPrefab.instantiate();
-				ping.position = collision.position;
-				get_tree().root.add_child(ping);
+	# Set ping information.
+	pingMaterial.set_shader_parameter("pingDistance", pingDistance);
