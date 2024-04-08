@@ -1,9 +1,18 @@
 extends CharacterBody3D
 
+@export_category("Movement Information")
 @export var movementSpeed : float = 2.0;
 @export var mouseSensitivity : float = 0.5;
 @export var nonForwardMovementFactor : float = 0.4;
+@export var momentumDampeningFactor : float = 0.5;
 
+@export_category("Bob Information")
+@export var bobCamera : Camera3D;
+@export var bobAmount : float = 1.0;
+@export var bobRate : float = 1.0;
+@export var bobDampening : float = 0.5;
+
+@export_category("Ping Information")
 @export var pingMaterial : ShaderMaterial;
 @export var maxPingCooldown : float = 10;
 @export var pingSpeed : float = 1;
@@ -24,6 +33,9 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		cameraOffset += event.relative;
 
+var momentum : Vector3 = Vector3.ZERO;
+var bob : Vector3 = Vector3.ZERO;
+var bobTime : float = 0;
 func _physics_process(delta):
 	if (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
 		return;
@@ -59,12 +71,25 @@ func _physics_process(delta):
 		-cos(rotation.y) * cos(upX)
 	);
 	
-	# Update velocity.
-	velocity = (
+	# Update momentum + velocity.
+	var totalMovement : Vector3 = (
 		(forward * playerMovement.z) + 
 		(up * playerMovement.y * nonForwardMovementFactor) + 
 		(right * playerMovement.x * nonForwardMovementFactor)
 	).normalized() * movementSpeed;
+	if (totalMovement.length_squared() > 0): momentum = lerp(momentum, totalMovement, momentumDampeningFactor * delta * 3)
+	else: momentum = lerp(momentum, totalMovement, momentumDampeningFactor * delta);
+	velocity = momentum;
+
+	# Handle bob.	
+	if (bobCamera):
+		if (playerMovement.length_squared() != 0): 
+			bobTime += delta;
+			bob = (right * bobAmount * sin(bobRate * bobTime * PI * 2));
+		else: 
+			bobTime = 0;
+			bob = bob.move_toward(Vector3.ZERO, bobDampening * delta);
+		bobCamera.position = bob;
 	
 	# Move.
 	move_and_slide();
