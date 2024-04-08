@@ -40,4 +40,7 @@ func onPlace(body):
 	# Check 
 	GlobalState.keysPlaceRemaining -= 1;
 	if (GlobalState.keysPlaceRemaining <= 0):
-		get_tree().change_scene_to_file(winScene);
+		call_deferred("enterWinScene");
+
+func enterWinScene():
+	get_tree().change_scene_to_file(winScene);
