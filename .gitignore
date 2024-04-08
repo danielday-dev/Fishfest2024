@@ -3,3 +3,4 @@
 
 *.tmp
 Export/
+Media/**.import
