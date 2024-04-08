@@ -1,32 +1,20 @@
 extends Node3D
 
+@export var movementSpeed : float = 1.0;
+@export var killDistance : float = 0.1;
+@export_file("*.tscn") var loseScene;
+
+var target : Node3D;
 func _process(delta):
-	var mainCamera : Camera3D = get_viewport().get_camera_3d();
-	var lookPos : Vector3 = mainCamera.global_position;
-	var selfPos : Vector3 = global_position;
+	if (!target || !loseScene):
+		return;
 	
-	var forwards : Vector3 = Vector3(0, 0, 1);
-	var right : Vector3 = Vector3(1, 0, 0);
-	var up: Vector3 = Vector3(0, 1, 0);
-	
-	var dif = selfPos - lookPos;
-	var difNorm = dif.normalized();
-	const cos45 = cos(PI / 4.0);
-	
-	var directions = [
-		-difNorm.dot(forwards),
-		-difNorm.dot(right),
-		-difNorm.dot(up)
-	];
-	var best = 0;
-	for i in range(1, directions.size()):
-		if (abs(directions[i]) > abs(directions[best])):
-			best = i;
-		
-	$Sprites/Front.visible = best == 0 && directions[best] >= 0;
-	$Sprites/Back.visible = best == 0 && directions[best] < 0;
-	$Sprites/Right.visible = best == 1 && directions[best] >= 0;
-	$Sprites/Left.visible = best == 1 && directions[best] < 0;
-	$Sprites/Above.visible = best == 2 && directions[best] >= 0;
-	$Sprites/Below.visible = best == 2 && directions[best] < 0;
-	
+	global_position = global_position.move_toward(target.global_position, delta * movementSpeed);
+	if (global_position.distance_to(target.global_position) < killDistance):
+		call_deferred("enterLoseScene");
+
+func _onKillzoneEntered(body):
+	target = body;
+
+func enterLoseScene():
+	get_tree().change_scene_to_file(loseScene);
