@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddabln5ceyaeq"]
+
+[ext_resource type="Script" path="res://Scripts/Eel.gd" id="1_kb1d8"]
+[ext_resource type="Texture2D" uid="uid://bwcvb5dpohsl1" path="res://Resources/Textures/EelSide.png" id="2_75cx6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_318h8"]
+size = Vector3(1.5, 0.5, 3)
+
+[node name="Eel" type="Node3D"]
+script = ExtResource("1_kb1d8")
+speed = 3.0
+
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 1.58943, 0, 0)
+shaded = true
+texture = ExtResource("2_75cx6")
+
+[node name="ActivateZone" type="Area3D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActivateZone"]
+shape = SubResource("BoxShape3D_318h8")
+
+[connection signal="body_entered" from="ActivateZone" to="." method="_on_activate_zone_body_entered"]
