@@ -1,7 +1,20 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dy6yime6oii8l"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dy6yime6oii8l"]
 
-[ext_resource type="FontFile" uid="uid://jgqg5ugto864" path="res://Resources/Fonts/Maki.ttf" id="1_1fvpi"]
+[ext_resource type="FontFile" uid="uid://jgqg5ugto864" path="res://Resources/Fonts/Maki.ttf" id="1_xb2k0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvdrm"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 5
 
 [resource]
-default_font = ExtResource("1_1fvpi")
+default_font = ExtResource("1_xb2k0")
 default_font_size = 64
+Panel/styles/panel = SubResource("StyleBoxFlat_bvdrm")

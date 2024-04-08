@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 @export var movementSpeed : float = 2.0;
+@export var mouseSensitivity : float = 0.5;
 @export var nonForwardMovementFactor : float = 0.4;
 
 @export var pingMaterial : ShaderMaterial;
@@ -14,27 +15,32 @@ func _ready():
 	pingCooldown = 0.0;
 	pingDistance = 0.0;
 	
-	
 func _process(delta):
 	# Handle ping.
 	processPing(delta);
+	
+var cameraOffset : Vector2 = Vector2.ZERO;
+func _unhandled_input(event):
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		cameraOffset += event.relative;
 
 func _physics_process(delta):
-	# Get input.	
-	var cameraMovement : Vector2 = Vector2(
-		Input.get_axis("ui_left", "ui_right"),
-		Input.get_axis("ui_down", "ui_up")
-	);
+	if (Input.mouse_mode != Input.MOUSE_MODE_CAPTURED):
+		return;
+	
+	# Handle camera.	
+	rotation.y += -cameraOffset.x * delta * mouseSensitivity;
+	rotation.x += -cameraOffset.y * delta * mouseSensitivity;
+	rotation.x = clamp(rotation.x, -1.6, 1.6);
+	cameraOffset = Vector2.ZERO
+
+	# Get input.
 	var playerMovement : Vector3 = Vector3(
 		Input.get_axis("Player_Movement_Left", "Player_Movement_Right"),
 		Input.get_axis("Player_Movement_Down", "Player_Movement_Up"),
 		Input.get_axis("Player_Movement_Backward", "Player_Movement_Forward")
 	);
 	
-	# Handle rotation.
-	rotation.y += -cameraMovement.x * delta;
-	rotation.x += cameraMovement.y * delta;
-
 	# Calculate angle directions.
 	var forward : Vector3 = Vector3(
 		-sin(rotation.y) * cos(rotation.x),
