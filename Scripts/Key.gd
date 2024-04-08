@@ -12,6 +12,7 @@ func _process(delta):
 	position = basePosition + Vector3(0, sin(floatTime) * bobHeight, 0);
 
 var pickedUp : bool = false;
+signal onPickedUp
 func onPickup(body):
 	# Safety first.
 	if (pickedUp): 
@@ -20,13 +21,14 @@ func onPickup(body):
 	
 	# Increment key count.
 	GlobalState.keysPickedUp += 1;
+	onPickedUp.emit()
 	queue_free();
 
 signal onPlaced;
 @export_file("*.tscn") var winScene;
 func onPlace(body):
 	# Decrement key count.
-	if (GlobalState.keysPickedUp <= 0 || !winScene):
+	if (GlobalState.keysPickedUp <= 0 || !winScene || visible):
 		return;
 	GlobalState.keysPickedUp -= 1;
 	

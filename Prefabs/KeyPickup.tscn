@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dtfjnjvx8ilov"]
+[gd_scene load_steps=10 format=3 uid="uid://dtfjnjvx8ilov"]
 
 [ext_resource type="PackedScene" uid="uid://ci5xbhk47d5gk" path="res://Prefabs/Key.tscn" id="1_1l5rv"]
 [ext_resource type="Script" path="res://Scripts/KeyPickup.gd" id="1_ab5ya"]
 [ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Resources/Materials/Darkness/DarknessMaterial.tres" id="1_rdght"]
+[ext_resource type="AudioStream" uid="uid://c7wdbaavecmh7" path="res://Resources/Audio/pickupkey.wav" id="4_fpt6j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xblh"]
 resource_name = "Material.003"
@@ -73,4 +74,9 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500001, 0)
 shape = SubResource("BoxShape3D_kemod")
 
+[node name="PickupNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fpt6j")
+volume_db = -15.0
+
+[connection signal="onPickedUp" from="Item_Key" to="." method="playPickupNoise"]
 [connection signal="body_entered" from="PickupArea" to="Item_Key" method="onPickup"]

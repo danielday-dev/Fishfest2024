@@ -108,6 +108,8 @@ func processPing(delta : float):
 		# Reset cooldown.
 		pingCooldown = maxPingCooldown;
 		pingDistance = 0.0;
+		# Play the ping noise.
+		$PingNoise.play();
 	
 	# Set ping information.
 	pingMaterial.set_shader_parameter("pingDistance", pingDistance);
