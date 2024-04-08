@@ -43,7 +43,7 @@ func _physics_process(delta):
 	# Handle camera.	
 	rotation.y += -cameraOffset.x * delta * mouseSensitivity;
 	rotation.x += -cameraOffset.y * delta * mouseSensitivity;
-	rotation.x = clamp(rotation.x, -1.6, 1.6);
+	rotation.x = clamp(rotation.x, PI / -2.1, PI / 2.1);
 	cameraOffset = Vector2.ZERO
 
 	# Get input.
