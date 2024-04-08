@@ -58,4 +58,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_fhf6o")
 [node name="KeyGlow" type="OmniLight3D" parent="Item_Key"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0730314, 0)
 light_color = Color(1, 0.807843, 0.513726, 1)
+omni_range = 4.0
 omni_attenuation = 0.366021

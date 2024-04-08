@@ -24,7 +24,8 @@ pingSpeed = 6.0
 shape = SubResource("SphereShape3D_xqx11")
 
 [node name="Light" type="OmniLight3D" parent="."]
-light_energy = 0.5
+light_energy = 0.3
+omni_range = 2.0
 
 [node name="PingNoise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_7csdq")
