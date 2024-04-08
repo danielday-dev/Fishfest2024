@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw14wbtwyu0a"]
+[gd_scene load_steps=11 format=3 uid="uid://bw14wbtwyu0a"]
 
 [ext_resource type="Script" path="res://Scripts/PauseScreen.gd" id="1_2om3j"]
 [ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Resources/Materials/Darkness/DarknessMaterial.tres" id="1_jns56"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dtfjnjvx8ilov" path="res://Prefabs/KeyPickup.tscn" id="4_tnk5s"]
 [ext_resource type="PackedScene" uid="uid://b0og5dqddnsij" path="res://Prefabs/KeyPlace.tscn" id="5_gwapc"]
 [ext_resource type="Theme" uid="uid://dy6yime6oii8l" path="res://Resources/ControlThemes/MainTheme.tres" id="6_3eqiu"]
+[ext_resource type="PackedScene" uid="uid://bqnn3quar4qpr" path="res://Prefabs/AnglerFish.tscn" id="8_s0tlc"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ithrh"]
 material = ExtResource("1_jns56")
@@ -84,3 +85,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -5, -8)
 
 [node name="KeyPlace" parent="." instance=ExtResource("5_gwapc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, -8)
+
+[node name="AnglerFish" parent="." instance=ExtResource("8_s0tlc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.444535, 2.22617, -4.45995)
