@@ -6,8 +6,8 @@
 render_priority = 0
 shader = ExtResource("1_n2pwl")
 shader_parameter/pingColor = Color(0.639216, 1, 0.713726, 1)
-shader_parameter/pingOrigin = Vector3(0, 0, 0)
 shader_parameter/pingDistance = 10.0
+shader_parameter/pingMaxDistance = 40.0
+shader_parameter/pingOrigin = Vector3(0, 0, 0)
 shader_parameter/pingSize = 1.0
 shader_parameter/pingFade = 4.0
-shader_parameter/pingMaxDistance = 40.0

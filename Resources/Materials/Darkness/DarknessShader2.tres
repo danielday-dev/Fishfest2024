@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=54 format=3 uid="uid://bp8py5jgxrh0g"]
+[gd_resource type="VisualShader" load_steps=56 format=3 uid="uid://bp8py5jgxrh0g"]
 
 [ext_resource type="Texture2D" uid="uid://druu51t7h47xd" path="res://Resources/Materials/Darkness/DarknessTexture.png" id="1_8a3l5"]
 
@@ -163,6 +163,13 @@ function = 31
 default_input_values = [0, 0.0, 1, 5.0]
 operator = 5
 
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_xpq1e"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, Vector3(0.5, 0.5, 0.5)]
+op_type = 3
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_ndc7j"]
+function = 31
+
 [sub_resource type="VisualShaderNodeVaryingSetter" id="VisualShaderNodeVaryingSetter_a1wyy"]
 varying_name = "worldPosition"
 varying_type = 4
@@ -187,11 +194,11 @@ varying vec2 screenUV;
 
 uniform sampler2D tex_lgt_4 : source_color;
 uniform vec4 pingColor : source_color = vec4(0.639216, 1.000000, 0.713726, 1.000000);
-uniform vec3 pingOrigin = vec3(0.000000, 0.000000, 0.000000);
 uniform float pingDistance = 10;
+uniform float pingMaxDistance = 40;
+uniform vec3 pingOrigin = vec3(0.000000, 0.000000, 0.000000);
 uniform float pingSize = 1;
 uniform float pingFade : hint_range(1, 20) = 4;
-uniform float pingMaxDistance = 40;
 
 
 
@@ -328,6 +335,28 @@ void light() {
 	vec4 n_out51p0 = pingColor;
 
 
+// FloatParameter:50
+	float n_out50p0 = pingDistance;
+
+
+// FloatParameter:71
+	float n_out71p0 = pingMaxDistance;
+
+
+// FloatOp:73
+	float n_out73p0 = n_out50p0 / n_out71p0;
+
+
+// Clamp:72
+	float n_in72p1 = 0.00000;
+	float n_in72p2 = 1.00000;
+	float n_out72p0 = clamp(n_out73p0, n_in72p1, n_in72p2);
+
+
+// Mix:76
+	vec3 n_out76p0 = mix(vec3(n_out4p0.xyz), vec3(n_out51p0.xyz), vec3(n_out72p0));
+
+
 // VaryingGetter:47
 	vec3 n_out47p0 = worldPosition;
 
@@ -338,10 +367,6 @@ void light() {
 
 // Distance:49
 	float n_out49p0 = distance(n_out47p0, n_out68p0);
-
-
-// FloatParameter:50
-	float n_out50p0 = pingDistance;
 
 
 // FloatOp:52
@@ -389,20 +414,6 @@ void light() {
 	float n_out64p0 = pow(n_out66p0, n_out69p0);
 
 
-// FloatParameter:71
-	float n_out71p0 = pingMaxDistance;
-
-
-// FloatOp:73
-	float n_out73p0 = n_out50p0 / n_out71p0;
-
-
-// Clamp:72
-	float n_in72p1 = 0.00000;
-	float n_in72p2 = 1.00000;
-	float n_out72p0 = clamp(n_out73p0, n_in72p1, n_in72p2);
-
-
 // FloatFunc:74
 	float n_out74p0 = 1.0 - n_out72p0;
 
@@ -417,7 +428,7 @@ void light() {
 
 
 // Mix:58
-	vec3 n_out58p0 = mix(n_out46p0, vec3(n_out51p0.xyz), n_out70p0);
+	vec3 n_out58p0 = mix(n_out46p0, n_out76p0, n_out70p0);
 
 
 // Output:0
@@ -426,7 +437,6 @@ void light() {
 
 }
 "
-graph_offset = Vector2(-394.724, -89.3985)
 varyings/worldPosition = "0,4"
 varyings/cameraPosition = "1,4"
 varyings/screenUV = "1,3"
@@ -498,7 +508,7 @@ nodes/light/49/position = Vector2(120, 220)
 nodes/light/50/node = SubResource("VisualShaderNodeFloatParameter_t5aju")
 nodes/light/50/position = Vector2(-140, 760)
 nodes/light/51/node = SubResource("VisualShaderNodeColorParameter_mcqhr")
-nodes/light/51/position = Vector2(940, 280)
+nodes/light/51/position = Vector2(700, 1140)
 nodes/light/52/node = SubResource("VisualShaderNodeFloatOp_qxaey")
 nodes/light/52/position = Vector2(300, 240)
 nodes/light/53/node = SubResource("VisualShaderNodeFloatParameter_fohgc")
@@ -537,4 +547,8 @@ nodes/light/74/node = SubResource("VisualShaderNodeFloatFunc_xno2c")
 nodes/light/74/position = Vector2(640, 1000)
 nodes/light/75/node = SubResource("VisualShaderNodeFloatOp_ryhde")
 nodes/light/75/position = Vector2(820, 1000)
-nodes/light/connections = PackedInt32Array(18, 0, 4, 0, 21, 0, 26, 0, 23, 0, 26, 1, 29, 0, 30, 1, 19, 0, 25, 0, 25, 0, 35, 1, 4, 0, 36, 0, 36, 0, 35, 0, 30, 0, 36, 2, 30, 0, 37, 0, 37, 0, 25, 1, 39, 0, 38, 1, 26, 0, 38, 0, 39, 0, 41, 0, 38, 0, 42, 0, 41, 0, 43, 0, 41, 0, 43, 1, 43, 0, 42, 1, 42, 0, 40, 0, 40, 0, 44, 0, 44, 0, 30, 0, 45, 0, 46, 1, 35, 0, 46, 0, 47, 0, 49, 0, 46, 0, 58, 0, 58, 0, 0, 0, 49, 0, 52, 0, 52, 0, 60, 0, 60, 0, 61, 0, 61, 0, 62, 0, 62, 0, 63, 0, 50, 0, 52, 1, 66, 0, 64, 0, 50, 0, 65, 0, 49, 0, 65, 1, 65, 0, 67, 0, 68, 0, 49, 1, 67, 0, 66, 1, 63, 0, 66, 0, 53, 0, 62, 1, 53, 0, 61, 2, 69, 0, 64, 1, 64, 0, 70, 0, 70, 0, 58, 2, 71, 0, 73, 1, 74, 0, 75, 0, 50, 0, 73, 0, 73, 0, 72, 0, 72, 0, 74, 0, 75, 0, 70, 1, 51, 0, 58, 1)
+nodes/light/76/node = SubResource("VisualShaderNodeMix_xpq1e")
+nodes/light/76/position = Vector2(1140, 840)
+nodes/light/77/node = SubResource("VisualShaderNodeFloatFunc_ndc7j")
+nodes/light/77/position = Vector2(1080, 460)
+nodes/light/connections = PackedInt32Array(18, 0, 4, 0, 21, 0, 26, 0, 23, 0, 26, 1, 29, 0, 30, 1, 19, 0, 25, 0, 25, 0, 35, 1, 4, 0, 36, 0, 36, 0, 35, 0, 30, 0, 36, 2, 30, 0, 37, 0, 37, 0, 25, 1, 39, 0, 38, 1, 26, 0, 38, 0, 39, 0, 41, 0, 38, 0, 42, 0, 41, 0, 43, 0, 41, 0, 43, 1, 43, 0, 42, 1, 42, 0, 40, 0, 40, 0, 44, 0, 44, 0, 30, 0, 45, 0, 46, 1, 35, 0, 46, 0, 47, 0, 49, 0, 46, 0, 58, 0, 58, 0, 0, 0, 49, 0, 52, 0, 52, 0, 60, 0, 60, 0, 61, 0, 61, 0, 62, 0, 62, 0, 63, 0, 50, 0, 52, 1, 66, 0, 64, 0, 50, 0, 65, 0, 49, 0, 65, 1, 65, 0, 67, 0, 68, 0, 49, 1, 67, 0, 66, 1, 63, 0, 66, 0, 53, 0, 62, 1, 53, 0, 61, 2, 69, 0, 64, 1, 64, 0, 70, 0, 70, 0, 58, 2, 71, 0, 73, 1, 74, 0, 75, 0, 50, 0, 73, 0, 73, 0, 72, 0, 72, 0, 74, 0, 75, 0, 70, 1, 75, 0, 77, 0, 51, 0, 76, 1, 76, 0, 58, 1, 4, 0, 76, 0, 72, 0, 76, 2)
