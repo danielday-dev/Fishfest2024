@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b0og5dqddnsij"]
+[gd_scene load_steps=11 format=3 uid="uid://b0og5dqddnsij"]
 
+[ext_resource type="Script" path="res://Scripts/KeyPlace.gd" id="1_d4otm"]
 [ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Resources/Materials/Darkness/DarknessMaterial.tres" id="1_kysfl"]
 [ext_resource type="PackedScene" uid="uid://ci5xbhk47d5gk" path="res://Prefabs/Key.tscn" id="2_3vx3e"]
 [ext_resource type="Script" path="res://Scripts/NoKeyGlow.gd" id="3_u8x7n"]
+[ext_resource type="AudioStream" uid="uid://bg5t34ri8i0i7" path="res://Resources/Audio/placekey.wav" id="4_fd12k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xblh"]
 resource_name = "Material.003"
@@ -49,6 +51,7 @@ data = PackedVector3Array(-0.3, 0, -0.3, -0.3233, 0.2, 0.3233, -0.3, 0, 0.3, -0.
 size = Vector3(0.3, 1, 0.3)
 
 [node name="KeyPlace" type="Node3D"]
+script = ExtResource("1_d4otm")
 
 [node name="Item_Holder" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -63,8 +66,6 @@ shape = SubResource("ConcavePolygonShape3D_mvsoo")
 
 [node name="Item_Key" parent="." instance=ExtResource("2_3vx3e")]
 visible = false
-rotationSpeed = null
-bobSpeed = null
 
 [node name="NoKeyGlow" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -82,5 +83,10 @@ collision_mask = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500001, 0)
 shape = SubResource("BoxShape3D_kemod")
 
+[node name="PlaceNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_fd12k")
+volume_db = -15.0
+
+[connection signal="onPlaced" from="Item_Key" to="." method="playPlaceNoise"]
 [connection signal="onPlaced" from="Item_Key" to="NoKeyGlow" method="onPlace"]
 [connection signal="body_entered" from="PickupArea" to="Item_Key" method="onPlace"]
