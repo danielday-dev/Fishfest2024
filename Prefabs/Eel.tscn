@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bwcvb5dpohsl1" path="res://Resources/Textures/EelSide.png" id="2_75cx6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_318h8"]
-size = Vector3(1.5, 0.5, 3)
+size = Vector3(1.5, 1.5, 3)
 
 [node name="Eel" type="Node3D"]
 script = ExtResource("1_kb1d8")
