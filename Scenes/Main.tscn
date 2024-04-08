@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://bw14wbtwyu0a"]
+[gd_scene load_steps=124 format=3 uid="uid://bw14wbtwyu0a"]
 
 [ext_resource type="Script" path="res://Scripts/PauseScreen.gd" id="1_2om3j"]
 [ext_resource type="Material" uid="uid://dqnppqlyc1pfx" path="res://Resources/Materials/Darkness/DarknessMaterial.tres" id="1_jns56"]
@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dtfjnjvx8ilov" path="res://Prefabs/KeyPickup.tscn" id="4_tnk5s"]
 [ext_resource type="PackedScene" uid="uid://b0og5dqddnsij" path="res://Prefabs/KeyPlace.tscn" id="5_gwapc"]
 [ext_resource type="Theme" uid="uid://dy6yime6oii8l" path="res://Resources/ControlThemes/MainTheme.tres" id="6_3eqiu"]
-[ext_resource type="PackedScene" uid="uid://bqnn3quar4qpr" path="res://Prefabs/AnglerFish.tscn" id="8_s0tlc"]
+[ext_resource type="PackedScene" path="res://Prefabs/AnglerFish.tscn" id="8_s0tlc"]
+[ext_resource type="AudioStream" uid="uid://v2508nr04ek8" path="res://Resources/Audio/mainfill.wav" id="9_bxsa5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hi0fh"]
 resource_name = "Material.006"
@@ -1800,3 +1801,8 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.5, 
 
 [node name="KeyPlace4" parent="Environment" instance=ExtResource("5_gwapc")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 0.42486, 14.5)
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_bxsa5")
+volume_db = -20.0
+autoplay = true
