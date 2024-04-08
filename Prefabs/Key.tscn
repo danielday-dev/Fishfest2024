@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ci5xbhk47d5gk"]
+[gd_scene load_steps=6 format=3 uid="uid://ci5xbhk47d5gk"]
 
 [ext_resource type="Script" path="res://Scripts/Key.gd" id="1_1acan"]
 
@@ -40,6 +40,10 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_l3wqf")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fhf6o"]
+shading_mode = 0
+albedo_color = Color(1, 0.807843, 0.513726, 1)
+
 [node name="Key" type="Node3D"]
 script = ExtResource("1_1acan")
 bobHeight = 0.1
@@ -49,6 +53,7 @@ winScene = "res://Scenes/WinScreen.tscn"
 transform = Transform3D(0.216078, 0, 0, 0, 0.216078, 0, 0, 0, 0.216078, 0, 0.5, 0)
 mesh = SubResource("ArrayMesh_d3hc6")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_fhf6o")
 
 [node name="KeyGlow" type="OmniLight3D" parent="Item_Key"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0730314, 0)
